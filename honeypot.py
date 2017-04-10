@@ -33,7 +33,7 @@ def handler(client, address):
         ida = random.random() * numart
         welcometext = "{}\nLogin: ".format(art_text[int(ida)])
         client.send(welcometext.encode("utf-8"))
-        report.write(welcometext);
+        report.write("Login: ");
         time.sleep(2)
         more = client.recv(1024)
         report.write(str(more))
