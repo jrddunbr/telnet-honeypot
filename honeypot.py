@@ -33,7 +33,8 @@ def handler(client, address):
     client.send(welcometext.encode("utf-8"))
     report.write(welcometext);
     client.settimeout(2)
-    report.write(client.recv(64))
+    more = client.recv(64)
+    report.write(str(more))
     client.send("Password: ".encode("utf-8"))
     report.write("Password: ")
     while True:
