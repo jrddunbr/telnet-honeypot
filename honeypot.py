@@ -31,7 +31,7 @@ def handler(client, address):
         print("[Info]: New Client: {}".format(ip))
         report = open(filename, "w+")
         ida = random.random() * numart
-        welcometext = "{}\nLogin:\n".format(art_text[int(ida)])
+        welcometext = "{}\nLogin: ".format(art_text[int(ida)])
         client.send(welcometext.encode("utf-8"))
         report.write(welcometext);
         time.sleep(2)
