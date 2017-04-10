@@ -29,9 +29,12 @@ def handler(client, address):
     print("[Info]: New Client: {}".format(ip))
     report = open(filename, "w+")
     ida = random.random() * numart
-    welcometext = "{}\nLogin:\nPassword:\n".format(art_text[int(ida)])
+    welcometext = "{}\nLogin:\n".format(art_text[int(ida)])
     client.send(welcometext.encode("utf-8"))
     report.write(welcometext);
+    report.write(client.recv(1024))
+    client.send("Password:".encode("utf-8"))
+    report.write("Password: ")
     while True:
         try:
             data = client.recv(1024)
