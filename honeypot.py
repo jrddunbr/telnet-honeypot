@@ -58,8 +58,8 @@ def handler(client, address):
                 client.close()
                 report.close()
                 break
-        except:
-            #print("Client disconnected")
+        except Exception as e:
+            print("[Error]: {}".format(e))
             client.close()
             report.close()
             break
