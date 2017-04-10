@@ -24,21 +24,25 @@ def generateFilename(client):
     return "{}~{}.log".format(client.getpeername()[0].replace('.','_'), datetime.datetime.now().strftime("%Y%m%d%H%M%S"))
 
 def handler(client, address):
-    filename = "logs/" + generateFilename(client)
-    ip = client.getpeername()[0]
-    print("[Info]: New Client: {}".format(ip))
-    report = open(filename, "w+")
-    ida = random.random() * numart
-    welcometext = "{}\nLogin:\n".format(art_text[int(ida)])
-    client.send(welcometext.encode("utf-8"))
-    report.write(welcometext);
-    client.settimeout(2)
-    more = client.recv(64)
-    report.write(str(more))
-    client.send("Password: ".encode("utf-8"))
-    report.write("Password: ")
+    try:
+        filename = "logs/" + generateFilename(client)
+        ip = client.getpeername()[0]
+        print("[Info]: New Client: {}".format(ip))
+        report = open(filename, "w+")
+        ida = random.random() * numart
+        welcometext = "{}\nLogin:\n".format(art_text[int(ida)])
+        client.send(welcometext.encode("utf-8"))
+        report.write(welcometext);
+        client.settimeout(2)
+        more = client.recv(64)
+        report.write(str(more))
+        client.send("Password: ".encode("utf-8"))
+        report.write("Password: ")
+    except Exception as e:
+        print("Error in initial spot: {}".format(e))
     while True:
         try:
+            client.settimeout(60)
             data = client.recv(1024)
             try:
                 data = data.decode("utf-8")
