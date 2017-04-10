@@ -37,10 +37,11 @@ def handler(client, address):
             data = client.recv(1024)
             try:
                 data = data.decode("utf-8")
-            except:
-                print("[Warning]: Decoding Error")
+            except Exception as e:
+                data = str(data)
+                print("[Warning]: Decoding Error: {}".format(e))
                 pass
-            report.write(data);
+            report.write(str(data));
             if data:
                 if "exit\r\n" in str(data):
                     #print("Client executed \"exit\" and disconnected")
