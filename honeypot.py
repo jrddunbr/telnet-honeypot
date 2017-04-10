@@ -1,4 +1,5 @@
 import socket
+import time
 import threading
 import datetime
 import os
@@ -33,6 +34,7 @@ def handler(client, address):
         welcometext = "{}\nLogin:\n".format(art_text[int(ida)])
         client.send(welcometext.encode("utf-8"))
         report.write(welcometext);
+        time.sleep(2)
         more = client.recv(1024)
         report.write(str(more))
         client.send("Password: ".encode("utf-8"))
