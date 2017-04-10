@@ -33,7 +33,7 @@ def handler(client, address):
         welcometext = "{}\nLogin:\n".format(art_text[int(ida)])
         client.send(welcometext.encode("utf-8"))
         report.write(welcometext);
-        client.settimeout(2)
+        client.settimeout(5)
         more = client.recv(64)
         report.write(str(more))
         client.send("Password: ".encode("utf-8"))
