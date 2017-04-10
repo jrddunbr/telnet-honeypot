@@ -32,8 +32,8 @@ def handler(client, address):
     welcometext = "{}\nLogin:\n".format(art_text[int(ida)])
     client.send(welcometext.encode("utf-8"))
     report.write(welcometext);
-    report.write(client.recv(1024))
-    client.send("Password:".encode("utf-8"))
+    report.write(client.recv(64))
+    client.send("Password: ".encode("utf-8"))
     report.write("Password: ")
     while True:
         try:
