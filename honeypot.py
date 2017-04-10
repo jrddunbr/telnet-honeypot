@@ -1,6 +1,8 @@
 import socket
 import threading
 import datetime
+import os
+import random
 
 threads = []
 
@@ -8,7 +10,15 @@ art_text = []
 
 HOST = "0.0.0.0"
 PORT = 3333
-ART_PATH = "./art"
+
+try:
+    os.mkdir("art")
+except Exception:#FileExistsError:
+    pass
+try:
+    os.mkdir("logs")
+except Exception:#FileExistsError:
+    pass
 
 def generateFilename(client):
     return "{}~{}.log".format(client.getpeername()[0].replace('.','_'), datetime.datetime.now().strftime("%Y%m%d%H%M%S"))
@@ -17,8 +27,9 @@ def handler(client, address):
     filename = "logs/" + generateFilename(client)
     ip = client.getpeername()[0]
     print("[Info]: New Client: {}".format(ip))
-    report = open(filename, "w+");
-    welcometext = "welcome\n"
+    report = open(filename, "w+")
+    ida = random.random() * numart
+    welcometext = "{}\nLogin:\nPassword:\n".format(art_text[int(ida)])
     client.send(welcometext.encode("utf-8"))
     report.write(welcometext);
     while True:
@@ -49,6 +60,15 @@ def handler(client, address):
             break
     print("[Info]: Lost Client: {}".format(ip))
 
+arts = os.listdir("art")
+for splashfile in arts:
+    splashfilename = "art/" + splashfile
+    spfile = open(splashfilename)
+    splash = ""
+    for line in spfile:
+        splash = splash + line
+    art_text.append(splash)
+numart = len(art_text)
 # Start TCP Stream, with automatic resource deallocation (so that the resource can be reused)
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -56,6 +76,7 @@ server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 server.bind((HOST, PORT))
 # Listen to up to 100 connections
 server.listen(100)
+print("Server started on TCP port {}.".format(PORT))
 while True:
     # While we have clients..
     client, address = server.accept()
