@@ -34,7 +34,12 @@ def handler(client, address):
     report.write(welcometext);
     while True:
         try:
-            data = client.recv(1024).decode("utf-8")
+            data = client.recv(1024)
+            try:
+                data = data.decode("utf-8")
+            except:
+                print("[Warning]: Decoding Error")
+                pass
             report.write(data);
             if data:
                 if "exit\r\n" in str(data):
