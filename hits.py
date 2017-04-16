@@ -25,5 +25,5 @@ for item in filelist:
 
 csv = open("times.csv", "w+")
 for time in sorted(times, key=times.get, reverse=True):
-    csv.write("{},{};".format(times[time], time))
-    print ("{} of {}".format(times[time], time))
+    csv.write("{},{}\n".format(times[time], time))
+    #print ("{} of {}".format(times[time], time))
