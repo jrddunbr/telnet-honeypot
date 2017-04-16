@@ -17,7 +17,7 @@ def parseFilename(filename): # returns ip, day, month, year, hour, minute, secon
 
 for item in filelist:
     ip, day, month, year, hour, minute, second = parseFilename(item)
-    datestring = "{}/{}/{} at {}:{}:{}".format(month, day, year, hour, minute, second)
+    datestring = "{}-{}-{} {}:{}:{}".format(year, month, day, hour, minute, second)
     if datestring not in times:
         times[datestring] = 1
     else:
