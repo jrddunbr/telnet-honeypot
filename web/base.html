@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>Doughnut Chart</title>
+    <script src="chart.js"></script>
+</head>
+<body>
+    <div id="canvas-holder" style="width:40%">
+        <canvas id="chart-area" />
+    </div>
+    <script>
+    var config = {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [
+                    3,
+                    4,
+                    6,
+                    3,
+                    1,
+                ],
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 99, 132)',
+                  'rgb(255, 99, 132)',
+                  'rgb(255, 99, 132)',
+                    'rgb(255, 99, 132)',
+                ],
+            }],
+            labels: [
+                "Red",
+                "Orange",
+                "Yellow",
+                "Green",
+                "Blue"
+            ]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Usernames'
+            },
+        }
+    };
+    window.onload = function() {
+        var ctx = document.getElementById("chart-area").getContext("2d");
+        window.myDoughnut = new Chart(ctx, config);
+    };
+    </script>
+</body>
+</html>

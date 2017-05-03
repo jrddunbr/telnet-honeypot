@@ -16,13 +16,7 @@ def parseFilename(filename): # returns ip, day, month, year, hour, minute, secon
     return ip, day, month, year, hour, minute, second
 
 #
-# Main Code - Reads all files, then  tells us what the passwords are,
-# from most to least common.
-# If the file is longer than 50 characters,
-# we will consider them executable code,
-# and combine the username and password as a script
-# (as many bots do no actually send login information)
-#
+# Main Code - Reads all files, then  tells us number of unique IP's
 
 for item in filelist:
     ip, day, month, year, hour, minute, second = parseFilename(item)
