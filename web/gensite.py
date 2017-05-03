@@ -88,10 +88,11 @@ for username in sorted(usernames, key=usernames.get, reverse=True):
 for password in sorted(passwords, key=passwords.get, reverse=True):
     pdata += "{},".format(passwords[password])
     pname += "\"{}\",".format(password.replace('"','').replace('\'', ''))
+    color2 += "'rgb({},{},{})',".format(random.randrange(0, 255),random.randrange(0, 255),random.randrange(0, 255))
     #print ("{} of {}".format(passwords[password], password))
 
-fil = "<html><head><title>Honeypot Information</title><script src=\"chart.js\"></script></head><body><div id=\"canvas-holder\" style=\"width:40%\"><canvas id=\"chart-area\" /></div><script>var config = {type: 'doughnut',data: {datasets: [{data: [" + udata + "],backgroundColor: [" + color1 + "],}],labels: [" + uname + "]},options: {responsive: true,legend: {position: 'top',},title: {display: true,text: 'Usernames'},}};window.onload = function() {var ctx = document.getElementById(\"chart-area\").getContext(\"2d\");window.myDoughnut = new Chart(ctx, config);};</script></html>"
+fil = "<html><head><title>Honeypot Information</title><script src=\"chart.js\"></script></head><body><div><p>Number of unique IP addresses: " + str(len(ips)) + "</p><p>Number of unique logins: " + str(len(passwords)) + "</p></div><div id=\"canvas-holder\" style=\"width:40%\"><canvas id=\"usernames\" /></div><div id=\"canvas-holder2\" style=\"width:40%\"><canvas id=\"passwords\" /></div><script>var config = {type: 'doughnut',data: {datasets: [{data: [" + udata + "],backgroundColor: [" + color1 + "],}],labels: [" + uname + "]},options: {responsive: true,legend: {position: 'top',},title: {display: true,text: 'Usernames'},}};var config2 = {type: 'doughnut',data: {datasets: [{data: [" + pdata + "],backgroundColor: [" + color2 + "],}],labels: [" + pname + "]},options: {responsive: true,legend: {position: 'top',},title: {display: true,text: 'Passwords'},}};window.onload = function() {var ctx = document.getElementById(\"usernames\").getContext(\"2d\");window.un = new Chart(ctx, config);var ctx2 = document.getElementById(\"passwords\").getContext(\"2d\");window.pn = new Chart(ctx2, config2);};</script></html>"
 
-ind = open("index.html", "w+")
+ind = open("/srv/http/index.html", "w+")
 ind.write(fil)
 ind.close()
